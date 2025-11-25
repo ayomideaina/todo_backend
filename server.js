@@ -36,6 +36,18 @@ app.post('/todos', (req, res) => {
   res.status(201).json(newTodo);
 });
 
+
+// Get one todo by ID (required for editing)
+app.get('/todos/:id', (req, res) => {
+  const todo = todos.find(t => t.id === parseInt(req.params.id));
+  
+  if (!todo) {
+    return res.status(404).json({ message: 'Todo not found' });
+  }
+
+  res.json(todo);
+});
+
 // Update an existing todo
 app.put('/todos/:id', (req, res) => {
   const todo = todos.find(t => t.id === parseInt(req.params.id));
